@@ -1,0 +1,81 @@
+body {
+    overflow-x: hidden;
+    color: #fff !important;
+}
+
+/** Simple Flexbox centering with text aligned slightly above for easier visuals **/
+.section1 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.section1::before {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: #002B53;
+    content: "";
+}
+.container {
+    position: relative;
+    text-align: center;
+}
+
+/** Main Login Screen **/
+#title {
+    position: relative;
+    font-weight: bold;
+    font-size: 5rem;
+    font-family: 'Oswald', 'Ubuntu', 'Open Sans', 'Roboto', Arial, sans-serif;
+    margin: 0px;
+}
+#container2 {
+    margin: 24px 16px;
+}
+#login-form {
+    text-align: center;
+    margin: 0 auto;
+    width: 95%;
+}
+#loginInputLabel, #passwordInputLabel, #submitButton {
+    font-family: 'Roboto', 'Ubuntu', 'Open Sans', 'Roboto', Arial, sans-serif;
+    font-size: 1.5em;
+}
+#loginInput, #passwordInput {
+    text-align: center;
+}
+#submitButton {
+    width: 25%;
+    margin: 4px 0px;
+    padding: 8px 16px;
+}
+#right-column {
+    vertical-align: middle;
+}
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+#claynce-placeholder-img {
+    vertical-align: middle;
+    margin-bottom: 24px;
+}
+
+/** Additional feature: Screen which supports smaller screen size **/ 
+@media only screen and (max-width: 768px) and (min-width: 300px) {
+    #submitButton {
+        width: calc(60% - 40px);
+        margin-left: 20px;
+    }
+    #submitButton {
+        font-size: 1.5em !important;
+    }
+    #claynce-placeholder-img {
+        margin: 16px 0px;
+    }
+}

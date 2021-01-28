@@ -1,0 +1,48 @@
+body {
+    overflow-x: hidden;
+}
+
+#test-image {
+    width: 100%;
+    height: auto;
+}
+
+/** Web Simulation Div **/
+#web-simulation-title {
+    text-align: center;
+}
+
+/** Button Options Div **/
+#button-options-div {
+    margin: 16px 0px;
+}
+
+#button-options-div-left {
+    justify-content: right;
+    text-align: right;
+}
+#button-options-div-right {
+    justify-content: left;
+    text-align: left;
+}
+#stop-button, #clean-button {
+    width: 33%;
+    font-size: 2em;
+}
+
+/** Status Div **/
+#status-div {
+    height: 100px;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.2);  
+}
+#status-inner-div {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#status-title {
+    text-align: center;
+}
