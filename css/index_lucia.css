@@ -1,0 +1,54 @@
+#button-start-now {
+    font-size: 2em;
+    padding-bottom: 25px;
+}
+
+#pattern-choices {
+    margin-left: 25px;
+}
+#time-choices {
+    margin-left: 25px;
+}
+
+input[type="radio"]{
+    margin: 0 10px 0 10px;
+  }
+
+  .trial{
+    margin: 0 10px 0 10px;
+  }
+
+
+/** Button Options Div **/
+#button-options-div-lu {
+    margin: 16px 0px;
+}
+
+#button-options-div-left-lu {
+    justify-content: right;
+    text-align: right;
+}
+#button-options-div-middle-lu {
+    justify-content: center;
+    text-align: center;
+}
+#button-options-div-right-lu {
+    justify-content: left;
+    text-align: left;
+}
+#stop-button-lu, #clean-button-lu {
+    width: 40%;
+    font-size: 2em;
+}
+
+.bg-gradient-custom{
+    background-color:#5cc0ff;
+    background-image:linear-gradient(180deg,#5cc0ff 10%,#224abe 100%);
+    background-size:cover
+}
+
+.bg-topbar-custom{
+    background-color:#f78c7b;
+    background-image:linear-gradient(180deg,#f78c7b 10%,#eb5c46 100%);
+    background-size:cover
+}
