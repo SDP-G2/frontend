@@ -52,3 +52,21 @@ input[type="radio"]{
     background-image:linear-gradient(180deg,#f78c7b 10%,#eb5c46 100%);
     background-size:cover
 }
+
+/** Better usability for phone - free free to modify **/
+/* Breakpoint for phone is between 360px to 576px */
+@media only screen and (min-width: 360px) and (max-width: 576px) {
+    #stop-button-lu, #clean-button-lu {
+        width: 70%;
+        font-size: 2rem;
+        height: 64px;
+    }
+    #button-options-div-left-lu, #button-options-div-middle-lu, #button-options-div-right-lu {
+        justify-content: center;
+        text-align: center; 
+        margin: 4px auto;
+        min-width: 180px;
+    }
+
+}
+/** Better usability for tablets or iPads can be done later **/

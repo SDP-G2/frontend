@@ -33,17 +33,44 @@ body {
 
 /** Status Div **/
 #status-div {
-    height: 100px;
+    height: 150px;
     position: relative;
     border: 1px solid rgba(0,0,0,0.2);  
 }
 #status-inner-div {
-    margin: 0;
+    display: inline;
+    margin: 8px 0px;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
+    width: 100%;
 }
+#status-block {
+    justify-content: center;
+    text-align: center;
+    min-height: 64px;
+}
+.status-inner-div-inline {
+    float: left;
+    justify-content: center;
+    margin-right: 8px;
+    width: 100px;
+}
+
 #status-title {
     text-align: center;
+}
+
+@media only screen and (min-width: 360px) and (max-width: 576px) {
+    #status-inner-div {
+        width: 90%;
+        min-height: 150px;
+        justify-content: center;
+        text-align: center;
+    }
+    #status-block {
+        float: none;
+        margin: 0px auto;
+    }
 }
