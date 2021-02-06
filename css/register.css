@@ -25,18 +25,23 @@ body {
     text-align: center;
 }
 
-/** Main Login Screen **/
+/** Main Register Screen **/
 #title {
     position: relative;
     font-weight: bold;
     font-size: 5rem;
     font-family: 'Oswald', 'Ubuntu', 'Open Sans', 'Roboto', Arial, sans-serif;
-    margin: 0px;
+    margin: 0px;    
 }
 #sub-title {
     position: relative;
     font-size: 3rem;
     font-family: 'Oswald', 'Ubuntu', 'Open Sans', 'Roboto', Arial, sans-serif;
+}
+
+/*** Steps Header ***/
+.step-div {
+    text-align: left;
 }
 
 #container2 {
@@ -47,13 +52,7 @@ body {
     margin: 0 auto;
     width: 95%;
 }
-#loginButton {
-    width: 50%;
-    margin: 4px 0px;
-    padding: 8px 16px;
-}
-
-#loginInputLabel, #passwordInputLabel, #loginButton {
+#loginInputLabel, #passwordInputLabel, #submitButton {
     font-family: 'Roboto', 'Ubuntu', 'Open Sans', 'Roboto', Arial, sans-serif;
     font-size: 1.75em;
 }
@@ -72,17 +71,18 @@ body {
     margin: 8px 0px;
 }
 
-#test2 {
-    text-align: center;
-}
-#submitButton {
-    width: 25%;
-    min-width: 175px;
-    margin: 4px 16px; 
-    padding: 8px 16px;
-    text-align: center;
+#qr-code-background {
+    height: 200px;
+    width: 200px;
+    background-color: black;
 }
 
+
+#submitButton {
+    width: 50%;
+    margin: 4px 0px;
+    padding: 8px 16px;
+}
 #right-column {
     vertical-align: middle;
 }
@@ -100,6 +100,9 @@ body {
 @media only screen and (max-width: 768px) and (min-width: 300px) {
     #submitButton {
         width: calc(60% - 40px);
+        margin-left: 20px;
+    }
+    #submitButton {
         font-size: 1.5em !important;
     }
     #claynce-placeholder-img {

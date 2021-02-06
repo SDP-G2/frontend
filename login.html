@@ -9,7 +9,7 @@
     <meta name="description" content="Login Page">
     <meta name="author" content="Justin Howe">
 
-    <title>Claynce - Login</title>
+    <title>Claynce - Login Form</title>
 
     <!-- Custom fonts for this template-->
     <!-- Will be removed -->
@@ -39,7 +39,7 @@
                     <!-- NOTE: LOGIN CREDIENTIALS WILL NEED TO BE VERIFIED -->
                     <form method="POST" id="login-form" action="index_justin.html">
                         <div class="form-group">
-                          <label id="loginInputLabel" for="loginInput">Login</label>
+                          <label id="loginInputLabel" for="loginInput">Username</label>
                           <input type="username" class="form-control" id="loginInput">
                           <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                         </div>
@@ -47,7 +47,12 @@
                           <label id="passwordInputLabel" for="exampleInputPassword1">Password</label>
                           <input type="password" class="form-control" id="passwordInput">
                         </div>
-                        <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+                        <div>
+                            <a id="register-link" href="register.html"><small id="newUserHelp">New User?</small></a>
+                        </div>
+                        <div id="test2">
+                            <button id="loginButton" type="submit" class="btn btn-primary">Login</button>
+                        </div>
                     </form>
                 </div>
                 <!-- Right column -->
