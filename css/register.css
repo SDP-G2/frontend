@@ -9,7 +9,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vh; /** For tablets and laptop usage **/
 }
 .section1::before {
     position: absolute;
@@ -20,6 +20,15 @@ body {
     background-color: #002B53;
     content: "";
 }
+
+/** Fixes visability issue for mobile **/
+@media only screen and (min-width: 360px) and (max-width:768px) {
+    .section1 {
+        height: 175vh;
+    }
+
+}
+
 .container {
     position: relative;
     text-align: center;
@@ -52,7 +61,7 @@ body {
     margin: 0 auto;
     width: 95%;
 }
-#loginInputLabel, #passwordInputLabel, #submitButton {
+#loginInputLabel, #passwordInputLabel, #registerButton, #submitButton {
     font-family: 'Roboto', 'Ubuntu', 'Open Sans', 'Roboto', Arial, sans-serif;
     font-size: 1.75em;
 }
@@ -78,7 +87,7 @@ body {
 }
 
 
-#submitButton {
+#registerButton, #submitButton {
     width: 50%;
     margin: 4px 0px;
     padding: 8px 16px;
@@ -96,16 +105,26 @@ body {
     margin-bottom: 24px;
 }
 
+#manual-input-uuid-div {
+    margin-top: 8px;
+}
+#submitButton {
+    margin-top: 16px;
+}
+
 /** Additional feature: Screen which supports smaller screen size **/ 
-@media only screen and (max-width: 768px) and (min-width: 300px) {
-    #submitButton {
-        width: calc(60% - 40px);
-        margin-left: 20px;
-    }
-    #submitButton {
+@media only screen and (max-width: 768px) and (min-width: 360px) {
+    #registerButton, #submitButton {
         font-size: 1.5em !important;
+        width: 75%;
     }
     #claynce-placeholder-img {
         margin: 16px 0px;
+    }
+    #left-column {
+        margin-top: 8px;
+    }
+    #right-column {
+        margin-top: 24px;
     }
 }
