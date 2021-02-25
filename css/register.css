@@ -34,6 +34,11 @@ body {
     text-align: center;
 }
 
+/** Container for Carousel Register Page **/
+#carouselExampleControls {
+    margin: 0 auto;
+}
+
 /** Main Register Screen **/
 #title {
     position: relative;

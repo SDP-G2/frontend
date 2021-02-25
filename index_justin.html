@@ -126,6 +126,14 @@
                                         <input type="radio" name="gr" value="1" onchange="val(this)">Evening</label>
                                 </li>
                             </ul>
+                            <h6 class="collapse-header">Or Set Time:</h6>
+                            <div id="manual-set-time-form-div">
+                                <form id="manual-set-time-form">
+                                    <input id="hour-input" type="number"><p id="time-colon">:</p><input id="minute-input" type="number">
+                                </form>
+                            </div>
+
+
                             <div id="button-set-time" class="col text-center">
                                 <button id="set-button" type="button" class="btn btn-info btn-sm">Set</button>
                             </div>
@@ -169,6 +177,15 @@
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
+
+                    <li id="contact-icon" class="nav-item dropdown no-arrow mx-1">
+                        <a id="contact-icon-a" href="#">
+                            <i class="fas fa-envelope fa-fw"></i>
+                            <!-- <span>Contact</span> -->
+                            <!-- Counter - Alerts -->
+                            <!-- <span class="badge badge-danger badge-counter">3+</span> -->
+                        </a>
+                    </li>
 
                     <!-- Nav Item - Alerts -->
                     <li class="nav-item dropdown no-arrow mx-1">
@@ -314,12 +331,6 @@
             <!-- Footer -->
             <footer class="footer">
                 <div class="float-right">
-                    <a href="#">
-                        <i class="fas fa-envelope fa-fw"></i>
-                        <span>Contact Us</span>
-                        <!-- Counter - Alerts -->
-                        <!-- <span class="badge badge-danger badge-counter">3+</span> -->
-                    </a>
                     <a href="#">
                         <i class="fas fa-download fa-fw"></i>
                         <span>Download Guide</span>

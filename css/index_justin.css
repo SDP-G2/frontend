@@ -11,6 +11,32 @@ body {
     height: auto;
 }
 
+/** Navigation - Set Time **/
+#contact-icon {
+    margin: auto 0px;
+}
+#contact-icon-a {
+    color: #d1d3e2;
+}
+
+
+#manual-set-time-form {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 8px;
+}
+#hour-input, #minute-input {
+    width: 48px;
+}
+#hour-input {
+    justify-content: right;
+    text-align: right;
+}
+#time-colon {
+    margin: 0px 2px;
+}
+
 /** Web Simulation Div **/
 #web-simulation-title {
     text-align: center;
