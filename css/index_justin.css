@@ -3,7 +3,7 @@ body {
 }
 
 .test {
-    height: calc(100% - 64px - 4.375rem);
+    height: calc(100% - 128px - 4.375rem) !important;
 }
 
 #test-image {
@@ -22,6 +22,16 @@ body {
     opacity: 0.95;
     background-image: none !important;
     background-size: cover;
+}
+
+/** Override Bootstrap's ToolTip for info buttons **/
+#info-icon, #info-icon-dashboard {
+    display: block;
+    text-align: right;
+    height: 40px;
+}
+#info-icon {
+    margin-right: 0.75rem;
 }
 
 
