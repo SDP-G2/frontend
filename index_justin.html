@@ -45,7 +45,7 @@
             <ul class="navbar-nav bg-gradient-custom sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index_justin.html">
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-baseball-ball"></i>
                     </div>
@@ -64,6 +64,12 @@
     
                 <!-- Divider -->
                 <hr class="sidebar-divider">
+
+                <!-- WARNING: Tooltips aren't shown in Google Chrome Dev Tools -->
+
+                <i class="fas fa-info-circle fa-2x" rel="tooltip"
+                title="You can select the cleaning pattern, time, and frequency for your robot by clicking on each button on the sidebar." 
+                id="info-icon"></i>                
     
                 <!-- Heading -->
                 <div class="sidebar-heading">
@@ -312,7 +318,11 @@
                     <div class="container">
 
                         <div id="web-simulation-div">
+                            <i class="fas fa-info-circle fa-2x" 
+                            title="The stop, pause, buttons can be used to control the movement of the cleaning robot." 
+                            id="info-icon-dashboard"></i>
                             <h1 id="web-simulation-title">Live Preview</h1>
+                            
                             <hr />
                             <div id="web-simulation-screen">
                                 <!-- TEST IMAGE- must be modified later when integrating webots to -->
