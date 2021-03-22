@@ -14,7 +14,7 @@
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        href="https://fonts.googleapis.com/css?family=Oswald|Nunito|Poppins:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -39,7 +39,7 @@
             <ul class="navbar-nav bg-gradient-custom sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index_justin.html">
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-baseball-ball"></i>
                     </div>
@@ -58,6 +58,12 @@
 
                 <!-- Divider -->
                 <hr class="sidebar-divider">
+
+                <!-- WARNING: Tooltips aren't shown in Google Chrome Dev Tools -->
+
+                <i class="fas fa-info-circle fa-2x" rel="tooltip"
+                title="Please select both Cleaning Pattern and Set Time sections respectively before setting your Claynce's configurations" 
+                id="info-icon"></i> 
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
@@ -109,13 +115,16 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Available Times:</h6>
-                            <label for="chosen_date">Choose a day:</label>
 
-                            <select name="chosen_date" id="choose_date">
-                                <option value="today">Today</option>
-                                <option value="tomorrow">Tomorrow</option>
-                                <option value="next_three_days">Next Three Days</option>
-                            </select>
+                            <div id="chosen-date-div">
+                                <label id="chosen-date-label" for="chosen_date">Choose a day:</label>
+                                <select name="chosen_date" id="choose_date">
+                                    <option value="today">Today</option>
+                                    <option value="tomorrow">Tomorrow</option>
+                                    <option value="next_three_days">Next Three Days</option>
+                                </select>                            
+                            </div>
+
 
                             <ul id="time-choices" class="nav navbar-nav">
                                 <li class="radio">
@@ -147,7 +156,7 @@
 
                     </div>
                     <div id="button-start-now" class="col text-center">
-                        <button id="start-button" type="button" class="btn btn-info btn-sm">Set</button>
+                        <button id="start-button" type="button" class="btn btn-success btn-sm">Set</button>
                     </div>
                 </li>
 
@@ -297,19 +306,19 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="small text-gray-500">December 12, 2019</div>
-                                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                    <div class="small text-gray-500">March 25, 2021</div>
+                                    <span class="font-weight-bold">User Guide now available for download!</span>
                                 </div>
                             </a>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="mr-3">
                                     <div class="icon-circle bg-success">
-                                        <i class="fas fa-donate text-white"></i>
+                                        <i class="fas fa-info text-white"></i>
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="small text-gray-500">December 7, 2019</div>
-                                    $290.29 has been deposited into your account!
+                                    <div class="small text-gray-500">March 21, 2021</div>
+                                    This web application allows you to control your Claynce robot with much greater ease!
                                 </div>
                             </a>
                             <a class="dropdown-item d-flex align-items-center" href="#">
@@ -319,8 +328,8 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="small text-gray-500">December 2, 2019</div>
-                                    Spending Alert: We've noticed unusually high spending for your account.
+                                    <div class="small text-gray-500">March 18, 2021</div>
+                                    This web application is currently in beta version.
                                 </div>
                             </a>
                             <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
@@ -378,34 +387,15 @@
                         </div>
 
                         <div class="row" id="button-options-div-lu">
-                            <div id="button-options-div-left-lu" class="col-sm-4">
-                                <button id="stop-button-lu" type="button" class="btn btn-info">START</button>
-                            </div>
-                            <div id="button-options-div-middle-lu" class="col-sm-4">
-                                <button id="stop-button-lu" type="button" class="btn btn-warning">PAUSE</button>
-                            </div>
-                            <div id="button-options-div-right-lu" class="col-sm-4">
-                                <button id="clean-button-lu" type="button" class="btn btn-danger">STOP</button>
-                            </div>
+                            <button id="clean-button-lu" type="button" class="btn btn-danger">STOP</button>
                         </div>
 
                         <h1 id="status-title">Status</h1>
                         <div class="container">
                             <div id="status-block" class="row">
                                 <div class="status-inner-div-inline">
-                                    <label>Website</label>
+                                    <label>Battery</label>
                                     <img width="24px" height="24px" src="img/light_icon.png" />
-                                </div>
-                                <div class="status-inner-div-inline">
-                                    <label>Webots</label>
-                                    <img id="redLightIcon" width="24px" height="24px" src="img/red_light_icon.png" />
-                                </div>
-                                <div class="status-inner-div-inline">
-                                    <label>Robot</label>
-                                    <img width="24px" height="24px" src="img/red_light_icon.png" />
-                                </div>
-                                <div class="status-inner-div-inline">
-                                    <label>Camera</label>
                                     <img width="24px" height="24px" src="img/red_light_icon.png" />
                                 </div>
                             </div>

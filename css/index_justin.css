@@ -2,7 +2,7 @@ body {
     overflow-x: hidden;
 }
 
-.test {
+#content {
     height: calc(100% - 128px - 4.375rem) !important;
 }
 
@@ -42,6 +42,14 @@ body {
 #contact-icon-a {
     color: #d1d3e2;
 }
+#chosen-date-div {
+    margin-bottom: 16px;
+}
+#chosen-date-label, #choose_date {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
 
 
 #manual-set-time-form {
@@ -60,6 +68,10 @@ body {
 #time-colon {
     margin: 0px 2px;
 }
+#adhoc-button {
+    font-size: 1.25rem;
+    font-family: 'Oswald', 'Nunito', sans-serif;
+}
 #start-button {
     font-size: 1.25rem;
     font-family: 'Oswald', 'Nunito', sans-serif;
@@ -68,28 +80,21 @@ body {
 /** Web Simulation Div **/
 #web-simulation-title {
     text-align: center;
-    font-family: 'Poppins', 'Nunito', sans-serif;
+    font-family: 'Nunito', sans-serif;
+}
+#web-simulation-screen {
+    width: 95%;
+    margin: 0 auto;
+
 }
 
 /** Button Options Div **/
-#button-options-div {
-    margin: 16px 0px;
-}
-#button-options-div-lu {
+#clean-button-lu {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 2rem;
     font-family: 'Oswald', 'Nunito', sans-serif;
-}
-
-#button-options-div-left {
-    justify-content: right;
-    text-align: right;
-}
-#button-options-div-right {
-    justify-content: left;
-    text-align: left;
-}
-#stop-button, #clean-button {
-    width: 33%;
-    font-size: 2em;
+    width: 20%;
 }
 
 /** Status Div **/
@@ -115,12 +120,11 @@ body {
 .status-inner-div-inline {
     float: left;
     justify-content: center;
-    margin-right: 8px;
-    width: 100px;
+    width: 200px;
 }
 
 #status-title {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nunito', sans-serif;
     text-align: center;
 }
 
@@ -154,6 +158,9 @@ body {
         position: fixed;
         top: 0;
         z-index: 1000;
+    }
+    #wrapper {
+        height: 100vh;
     }
 }
 
