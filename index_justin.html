@@ -332,7 +332,7 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-white-200 small">Test User</span>
+                            <span class="mr-2 d-none d-lg-inline text-white-200 small" id="name_dropdown"></span>
                             <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                         </a>
                         <!-- Dropdown - User Information -->
@@ -485,6 +485,7 @@
         function produceName() {
             var username = localStorage.getItem('Username');
             document.getElementById("welcome_user").innerHTML = username;
+            document.getElementById("name_dropdown").innerHTML = username;
         }
 
         function createCommand(clean_string, time_string) {
