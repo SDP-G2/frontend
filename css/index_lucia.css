@@ -36,10 +36,6 @@ input[type="radio"]{
     justify-content: left;
     text-align: left;
 }
-#stop-button-lu, #clean-button-lu {
-    width: 40%;
-    font-size: 2em;
-}
 
 .bg-gradient-custom{
     background-color:#5cc0ff;
