@@ -3,13 +3,37 @@ body {
 }
 
 .test {
-    height: calc(100% - 64px - 4.375rem);
+    height: calc(100% - 128px - 4.375rem) !important;
 }
 
 #test-image {
     width: 100%;
     height: auto;
 }
+
+/** Navigation Bar **/
+#accordionSidebar {
+    background-color: #002B53 !important;
+    background-image: linear-gradient(180deg, #4e73df 5%,#002B53 100%) !important;
+    background-size: cover;
+}
+.bg-topbar-custom {
+    background-color: #002B53 !important;
+    opacity: 0.95;
+    background-image: none !important;
+    background-size: cover;
+}
+
+/** Override Bootstrap's ToolTip for info buttons **/
+#info-icon, #info-icon-dashboard {
+    display: block;
+    text-align: right;
+    height: 40px;
+}
+#info-icon {
+    margin-right: 0.75rem;
+}
+
 
 /** Navigation - Set Time **/
 #contact-icon {
@@ -36,21 +60,28 @@ body {
 #time-colon {
     margin: 0px 2px;
 }
+#start-button {
+    font-size: 1.25rem;
+    font-family: 'Oswald', 'Nunito', sans-serif;
+}
 
 /** Web Simulation Div **/
 #web-simulation-title {
     text-align: center;
+    font-family: 'Poppins', 'Nunito', sans-serif;
 }
 
 /** Button Options Div **/
 #button-options-div {
     margin: 16px 0px;
 }
+#button-options-div-lu {
+    font-family: 'Oswald', 'Nunito', sans-serif;
+}
 
 #button-options-div-left {
     justify-content: right;
     text-align: right;
-
 }
 #button-options-div-right {
     justify-content: left;
@@ -89,6 +120,7 @@ body {
 }
 
 #status-title {
+    font-family: 'Poppins', sans-serif;
     text-align: center;
 }
 
