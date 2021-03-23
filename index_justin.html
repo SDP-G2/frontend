@@ -53,7 +53,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="../frontend/index_justin.html">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span></a>
+                        <span id="dashboard-text">Dashboard</span></a>
                 </li>
 
                 <!-- Divider -->
@@ -84,7 +84,7 @@
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
                         <i class="fas fa-broom"></i>
-                        <span>Cleaning Pattern</span>
+                        <span id="cleaning-pattern-text">Cleaning Pattern</span>
                     </a>
                     <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
                         data-parent="#accordionSidebar">
@@ -109,7 +109,7 @@
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                         aria-expanded="true" aria-controls="collapseUtilities">
                         <i class="far fa-clock"></i>
-                        <span>Set Time</span>
+                        <span id="set-time-text">Set Time</span>
                     </a>
                     <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities"
                         data-parent="#accordionSidebar">
@@ -156,7 +156,7 @@
 
                     </div>
                     <div id="button-start-now" class="col text-center">
-                        <button id="start-button" type="button" class="btn btn-success btn-sm">Set</button>
+                        <button id="start-button" type="button" class="btn btn-success btn-sm">GO</button>
                     </div>
                 </li>
 
@@ -318,7 +318,8 @@
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
-                    <li id="contact-icon" class="nav-item dropdown no-arrow mx-1">
+                    <!-- Nav Item - Contact -->
+                    <li id="contact-icon" class="nav-item dropdown no-arrow">
                         <a id="contact-icon-a" href="#">
                             <i class="fas fa-envelope fa-fw"></i>
                             <!-- <span>Contact</span> -->
@@ -327,8 +328,15 @@
                         </a>
                     </li>
 
+                    <!-- Nav Item - Download Guide -->
+                    <li id="download-guide-icon" class="nav-item dropdown no-arrow">
+                        <a id="download-guide-icon-a" href="#">
+                            <i class="fas fa-download fa-fw"></i>
+                        </a>
+                    </li>
+
                     <!-- Nav Item - Alerts -->
-                    <li class="nav-item dropdown no-arrow mx-1">
+                    <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-bell fa-fw"></i>
@@ -449,24 +457,15 @@
                             </div>
                         </div>
 
+                        <div id="claynce-logo-div" class="background-img">
+                            <img id="claynce-logo" src="img/Claynce_darkblue-transparent-background.png">
+                        </div>
+
                     </div>
                 </section>
             </div>
 
             <!-- End of Main container -->
-
-            <!-- Footer -->
-            <footer class="footer">
-                <div class="float-right">
-                    <a href="#">
-                        <i class="fas fa-download fa-fw"></i>
-                        <span>Download Guide</span>
-                        <!-- Counter - Alerts -->
-                        <!-- <span class="badge badge-danger badge-counter">3+</span> -->
-                    </a>
-                </div>
-            </footer>
-            <!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->
