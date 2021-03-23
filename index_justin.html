@@ -62,8 +62,8 @@
                 <!-- WARNING: Tooltips aren't shown in Google Chrome Dev Tools -->
 
                 <i class="fas fa-info-circle fa-2x" rel="tooltip"
-                title="Please select both Cleaning Pattern and Set Time sections respectively before setting your Claynce's configurations" 
-                id="info-icon"></i> 
+                    title="Please select both Cleaning Pattern and Set Time sections respectively before setting your Claynce's configurations"
+                    id="info-icon"></i>
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
@@ -122,7 +122,7 @@
                                     <option value="today">Today</option>
                                     <option value="tomorrow">Tomorrow</option>
                                     <option value="next_three_days">Next Three Days</option>
-                                </select>                            
+                                </select>
                             </div>
 
 
@@ -279,6 +279,26 @@
             </div>
         </div>
 
+        <!-- Modal - Successfully set -->
+        <div class="modal fade" id="cancelledCommand_modal" role="dialog">
+                <div class="modal-dialog">
+    
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Command Successfully Cancelled</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>The selected cleaning pattern and time job has successfully been cancelled</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
         <!-- Sidebar Toggle (Topbar) -->
         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3 toggle">
             <i class="fa fa-bars"></i>
@@ -340,7 +360,8 @@
                                 </div>
                                 <div>
                                     <div class="small text-gray-500">March 21, 2021</div>
-                                    This web application allows you to control your Claynce robot with much greater ease!
+                                    This web application allows you to control your Claynce robot with much greater
+                                    ease!
                                 </div>
                             </a>
                             <a class="dropdown-item d-flex align-items-center" href="#">
@@ -409,7 +430,7 @@
                         </div>
 
                         <div class="row" id="button-options-div-lu">
-                            <button id="clean-button-lu" type="button" class="btn btn-danger">STOP</button>
+                            <button id="emergencyStop" type="button" class="btn btn-danger">STOP</button>
                         </div>
 
                         <h1 id="status-title">Status</h1>
@@ -519,7 +540,7 @@
                 body: JSON.stringify({
                     robot_serial_number: localStorage.getItem('RobotID'),
                     time_issued: time_now + 60,
-                    time_instruction: time_string,  
+                    time_instruction: time_string,
                     instruction: {
                         Task: clean_string
                     }
@@ -528,8 +549,32 @@
             return fetch(USER_ENDPOINT, params).then(response => response.json());
 
         }
+        function deleteCommand(command_number) {
+
+            const USER_ENDPOINT = "http://localhost:8000/command/" + command_number;
+            const params = {
+                 method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('Authorization')
+                },
+                body: JSON.stringify({
+                })
+            };
+            return fetch(USER_ENDPOINT, params).then(response => response.json());
+
+        }
 
         $(document).ready(function () {
+            document.getElementById('emergencyStop').addEventListener("click", () => {
+                command_number = 5;
+
+                deleteCommand(command_number).then((response) => {
+                    console.log(response);
+                    $("#cancelledCommand_modal").modal();
+                });
+            });
+
             document.getElementById('start-button').addEventListener("click", () => {
                 var clean_string = '';
                 var time_string = [];
@@ -581,7 +626,7 @@
                         time_string.push(right_now + time_till_tmr + nineHrs_seconds);
                         time_string.push(right_now + time_till_tmr + nineHrs_seconds + day_seconds);
                         time_string.push(right_now + time_till_tmr + nineHrs_seconds + day_seconds + day_seconds);
-                    }else if (date_chosen == "today") {
+                    } else if (date_chosen == "today") {
                         if (second_now >= sixHrs_seconds) {
                             $("#notInTimeRange_modal").modal();
                         } else {
@@ -601,7 +646,7 @@
                         time_string.push(right_now + time_till_tmr + twelveHrs_seconds);
                         time_string.push(right_now + time_till_tmr + twelveHrs_seconds + day_seconds);
                         time_string.push(right_now + time_till_tmr + twelveHrs_seconds + day_seconds + day_seconds);
-                    }else if (date_chosen == "today") {
+                    } else if (date_chosen == "today") {
                         if (second_now >= twelveHrs_seconds) {
                             $("#notInTimeRange_modal").modal();
                         } else {
@@ -621,7 +666,7 @@
                         time_string.push(right_now + time_till_tmr + fifteenHrs_seconds);
                         time_string.push(right_now + time_till_tmr + fifteenHrs_seconds + day_seconds);
                         time_string.push(right_now + time_till_tmr + fifteenHrs_seconds + day_seconds + day_seconds);
-                    }else if (date_chosen == "today") {
+                    } else if (date_chosen == "today") {
                         if (second_now >= fifteenHrs_seconds) {
                             $("#notInTimeRange_modal").modal();
                         } else {
@@ -641,7 +686,7 @@
                         time_string.push(right_now + time_till_tmr + eighteenHrs_seconds);
                         time_string.push(right_now + time_till_tmr + eighteenHrs_seconds + day_seconds);
                         time_string.push(right_now + time_till_tmr + eighteenHrs_seconds + day_seconds + day_seconds);
-                    }else if (date_chosen == "today") {
+                    } else if (date_chosen == "today") {
                         if (second_now >= eighteenHrs_seconds) {
                             $("#notInTimeRange_modal").modal();
                         } else {
