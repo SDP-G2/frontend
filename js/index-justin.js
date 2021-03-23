@@ -14,6 +14,28 @@ nav.onclick = function() {
     }
 }
 
+document.body.onload = function() {
+    var batteryLevelPercentageValue = document.getElementById("battery-level-percentage-value");
+    var batteryLevelPercentageValueStr = document.getElementById("battery-level-percentage-value").innerHTML;
+    var batteryStatusGreenLight = document.getElementById("battery-status-green-light");
+    var batteryStatusRedLight = document.getElementById("battery-status-red-light");
+
+    var value = parseInt(batteryLevelPercentageValueStr)
+
+    if ((value >= 50) && (value <= 100)) {
+        batteryStatusGreenLight.style.display = "inline";
+    }
+    else if ((value >= 0) && (value < 50)) {
+        batteryStatusRedLight.style.display = "inline";
+        $(batteryLevelStatus_modal).modal();
+    }
+    else {
+        batteryLevelPercentageValue.innerText = "NULL";
+    }
+        
+}
+
+
 function create_robot(robot_name) {
     const USER_ENDPOINT = "http://localhost:8000/admin/robot";
     const params = {

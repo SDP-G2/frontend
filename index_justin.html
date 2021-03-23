@@ -257,6 +257,28 @@
 
             </div>
         </div>
+
+        <!-- Modal - Battery Level Status Modal -->
+        <div class="modal fade" id="batteryLevelStatus_modal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">WARNING: Battery Level Low!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>The battery level for your Claynce is below 50%!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <!-- Sidebar Toggle (Topbar) -->
         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3 toggle">
             <i class="fa fa-bars"></i>
@@ -394,9 +416,14 @@
                         <div class="container">
                             <div id="status-block" class="row">
                                 <div class="status-inner-div-inline">
-                                    <label>Battery</label>
-                                    <img width="24px" height="24px" src="img/light_icon.png" />
-                                    <img width="24px" height="24px" src="img/red_light_icon.png" />
+                                    <div id="battery-level-div">
+                                        <label>Battery Level: </label>
+                                        <label id="battery-level-percentage-value">49</label>
+                                        <label>%</label>
+                                    </div>
+                                    <label>Battery Status: </label>
+                                    <img id="battery-status-green-light" width="24px" height="24px" src="img/light_icon.png" />
+                                    <img id="battery-status-red-light" width="24px" height="24px" src="img/red_light_icon.png" />
                                 </div>
                             </div>
                         </div>

@@ -128,6 +128,10 @@ body {
     text-align: center;
 }
 
+#battery-status-red-light, #battery-status-green-light {
+    display: none;
+}
+
 .footer {
     width: 100%;
     height: 64px;
