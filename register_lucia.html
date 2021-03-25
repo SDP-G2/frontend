@@ -28,6 +28,8 @@
     <link href="css/register.css" rel="stylesheet">
     <link href="css/index_lucia.css" rel="stylesheet">
 
+    <script src="js/qr_packed.js"></script>
+
 </head>
 
 <body>
@@ -70,29 +72,30 @@
 
                         <div class="carousel-item">
 
+
                             <div id="container">
                                 <h1>QR Code Scanner</h1>
 
                                 <a id="btn-scan-qr">
                                     <img
-                                        src="https://uploads.sitepoint.com/wp-content/uploads/2017/07/1499401426qr_icon.svg">
-                                    <a />
+                                        src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg">
+                                </a>
 
-                                    <canvas hidden="" id="qr-canvas"></canvas>
+                                <canvas hidden="" id="qr-canvas"></canvas>
 
-                                    <div id="qr-result" hidden="">
-                                        <b>Data:</b> <span id="outputData"></span>
-                                    </div>
-
-
+                                <div id="qr-result" hidden="">
+                                    <b>Data:</b> <span id="outputData"></span>
+                                </div>
                             </div>
+
+                            <script src="js/register_lucia.js"></script>
 
                             <div>
                                 <a id="register-link" type="submit" class="" data-slide="next"
-                                href="#carouselExampleControls"><small id="newUserHelp">Don't have QR code?</small></a>
+                                    href="#carouselExampleControls"><small id="newUserHelp">Don't have QR
+                                        code?</small></a>
                             </div>
 
-                            <script src="register_lucia.js"></script>
 
                             <div>
                                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
@@ -127,27 +130,6 @@
                             </div>
                         </div>
 
-                        <div class="carousel-item">
-
-                            <row>
-                                <div id="manual-input-uuid-div row">
-
-                                    <form action="index_justin.html">
-                                        <button id="submitButton" type="submit" class="btn btn-primary">Go to my
-                                            Dashboard</button>
-                                    </form>
-                                </div>
-                            </row>
-                            <div>
-                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                                    data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-
-                            </div>
-                        </div>
-
                     </div>
 
 
@@ -165,10 +147,9 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
-
-    <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
-
     <script>
+        var qrSerial = "";
+
         function createUser(username, password, robotID) {
             const USER_ENDPOINT = "http://localhost:8000/user";
             const params = {
@@ -207,7 +188,28 @@
             window.location.replace("index_justin.html");
         }
 
+        function tick() {
+            canvasElement.height = video.videoHeight;
+            canvasElement.width = video.videoWidth;
+            canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+
+            scanning && requestAnimationFrame(tick);
+        }
+
+        function scan() {
+            try {
+                qrcode.decode();
+            } catch (e) {
+                setTimeout(scan, 300);
+            }
+        }
+
+
+
         $(document).ready(function () {
+
+
+
             document.getElementById('submitButton').addEventListener("click", () => {
                 var username = document.getElementById('loginInput').value;
                 var password = document.getElementById('passwordInput').value;
@@ -220,14 +222,19 @@
                         if (response) {
                             localStorage.setItem('Authorization', response.token);
                             localStorage.setItem('Username', username);
+                            window.location.replace("index_justin.html");
                         }
                     });
                 });
             });
 
+
+            
+
         });
 
     </script>
+
 
 </body>
 

@@ -1,5 +1,3 @@
-const qrcode = window.qrcode;
-
 const video = document.createElement("video");
 const canvasElement = document.getElementById("qr-canvas");
 const canvas = canvasElement.getContext("2d");
@@ -10,8 +8,7 @@ const btnScanQR = document.getElementById("btn-scan-qr");
 
 let scanning = false;
 
-
-qrcode.callback = (res) => {
+qrcode.callback = res => {
     if (res) {
         outputData.innerText = res;
         scanning = false;
@@ -21,11 +18,34 @@ qrcode.callback = (res) => {
         });
 
         qrResult.hidden = false;
-        btnScanQR.hidden = false;
         canvasElement.hidden = true;
+        btnScanQR.hidden = false;
+
+        qrSerial = res;
+
+        tester(qrSerial);
+
     }
 };
 
+function tester(qrSerial) {
+    if (qrSerial !== '') {
+        var username = document.getElementById('loginInput').value;
+        var password = document.getElementById('passwordInput').value;
+
+        createUser(username, password, qrSerial).then(() => {
+            getAuth(username, password).then((response) => {
+                console.log(response);
+
+                if (response) {
+                    localStorage.setItem('Authorization', response.token);
+                    localStorage.setItem('Username', username);
+                    window.location.replace("index_justin.html");
+                }
+            });
+        });
+    }
+}
 
 btnScanQR.onclick = () => {
     navigator.mediaDevices
@@ -40,8 +60,8 @@ btnScanQR.onclick = () => {
             video.play();
             tick();
             scan();
-        })
-    };
+        });
+};
 
 function tick() {
     canvasElement.height = video.videoHeight;
@@ -51,11 +71,10 @@ function tick() {
     scanning && requestAnimationFrame(tick);
 }
 
-
 function scan() {
     try {
-      qrcode.decode();
+        qrcode.decode();
     } catch (e) {
-      setTimeout(scan, 300);
+        setTimeout(scan, 300);
     }
-  }
+}
