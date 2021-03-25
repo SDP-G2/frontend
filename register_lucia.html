@@ -44,7 +44,7 @@
                 <div id="carouselExampleControls" class="carousel slide" data-interval="false">
                     <div class="carousel-inner">
                         <div class="carousel-item  active" style="width:100%;">
-                            <!-- NOTE: REMOVED action - manually implemented -->
+                            <!-- REMOVED action - manually implemented  -->
                             <row>
                                 <form method="POST" id="login-form" action="index_justin.html">
                                     <div class="form-group space-register">
@@ -150,7 +150,7 @@
     <script>
         var qrSerial = "";
 
-        function createUser(username, password, robotID) {
+        async function createUser(username, password, robotID) {
             const USER_ENDPOINT = "http://localhost:8000/user";
             const params = {
                 method: 'POST',
@@ -163,8 +163,15 @@
                     robot_serial_number: robotID
                 })
             };
-            return fetch(USER_ENDPOINT, params).then(response => response.json());
+
+            const response = await fetch(USER_ENDPOINT, params)
+            if (response.status !== 200) {
+                return;
+            } else {
+                return response.json();
+            }
         }
+
 
         function getAuth(username, pwd) {
             const USER_ENDPOINT = "http://localhost:8000/auth";
@@ -230,25 +237,31 @@
                 var password = document.getElementById('passwordInput').value;
                 var robotID = document.getElementById('uuidInput').value;
 
-                createUser(username, password, robotID).then(() => {
+                createUser(username, password, robotID).then((response) => {
 
-                    localStorage.setItem("RobotName", robotID);
-                    getAuth(username, password).then((response) => {
-                        console.log(response);
+                    console.log(response);
+                    if (response) {
+                        localStorage.setItem("RobotName", robotID);
+                        getAuth(username, password).then((response) => {
+                            console.log(response);
 
-                        if (response) {
-                            localStorage.setItem('Authorization', response.token);
-                            localStorage.setItem('Username', username);
-                            window.location.replace("index_justin.html");
-                        }
-                    });
+                            if (response) {
+                                fetchBattery().then((response) => {
+                                    console.log(response);
+                                    localStorage.setItem('Battery', response.battery_level);
+
+                                    localStorage.setItem('Authorization', response.token);
+                                    localStorage.setItem('Username', username);
+                                    window.location.replace("index_justin.html");
+                                });
+
+                            }
+                        });
+                    }
                 });
             });
 
-            fetchBattery().then((response) => {
-                console.log(response);
-                localStorage.setItem('Battery', response.battery_level);
-            });
+
 
 
 
