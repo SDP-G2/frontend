@@ -51,19 +51,25 @@ body {
     width: 50%;
     margin: 4px 0px;
     padding: 8px 16px;
+    font-family: 'Oswald', Arial, sans-serif;
+    font-size: 1.75rem;
 }
 
-#loginInputLabel, #passwordInputLabel, #loginButton {
+#loginInputLabel, #passwordInputLabel {
     font-family: 'Roboto', 'Ubuntu', 'Open Sans', 'Roboto', Arial, sans-serif;
     font-size: 1.75em;
 }
 #loginInput, #passwordInput {
+    margin: 0px auto;
     text-align: center;
+    width: 100%;
 }
 
-
-#register-link:hover {
-    text-decoration: none;
+#register-link-div {
+    margin: 8px 0px;
+}
+#register-link {
+    text-decoration: underline;
 }
 #newUserHelp {
     font-size: 1rem;
