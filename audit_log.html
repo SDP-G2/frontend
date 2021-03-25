@@ -29,7 +29,7 @@
 
 </head>
 
-<body  id="page-top" >
+<body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -69,15 +69,6 @@
                 <div class="sidebar-heading">
                     Your Claynce
                 </div>
-
-                <!-- Nav Item - Selecting Pattern and time -->
-                <!-- <li class="nav-item">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Select Pattern:</h6>
-                        <input type="radio" class="collapse-item">Zig Zag</input>
-                        <a class="collapse-item" href="cards.html">Circular</a> 
-                    </div>
-                </li> -->
 
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
@@ -398,9 +389,9 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                             aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="audit_log.html">
+                            <a class="dropdown-item" href="index_justin.html">
                                 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
+                                Dashboard
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -421,12 +412,23 @@
                     <div class="container">
 
                         <div id="web-simulation-div">
-                            <h1 id="web-simulation-title">Welcome, <span id="welcome_user"></span></h1>
+                            <h1 id="web-simulation-title">Activity Log</span></h1>
                             <hr />
-                            <div id="web-simulation-screen">
-                                <!-- TEST IMAGE- must be modified later when integrating webots to -->
-                                <img id="test-image" src="img/courtModel.png">
-                            </div>
+                            <table id="audit_table" class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Bot Name</th>
+                                        <th scope="col">Time Issued</th>
+                                        <th scope="col">Command Instruction</th>
+                                        <th scope="col">Instruction</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Cancel</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
 
                         <div class="row" id="button-options-div-lu">
@@ -511,11 +513,11 @@
     <script src="js/demo/chart-pie-demo.js"></script>
 
     <!-- Customized script -->
-    <script src="js/index-justin.js"></script>
+    <script src="js/audit-log.js"></script>
 
     <script>
 
-        
+        var table_counting = 1;
 
         function createCommand(clean_string, time_string) {
 
@@ -556,7 +558,46 @@
 
         }
 
+        function addNewEntry(time_issued, instruction_time, clean_string, status) {
+            var tbodyRef = document.getElementById('audit_table').getElementsByTagName('tbody')[0];
+
+            // Insert a row at the end of table
+            var newRow = tbodyRef.insertRow();
+
+            // Insert a cell at the end of the row
+            var newCellNum = newRow.insertCell();
+            var newCellName = newRow.insertCell();
+            var newCellIssued = newRow.insertCell();
+            var newCellTimeCommand = newRow.insertCell();
+            var newCellInstruction = newRow.insertCell();
+            var newCellStatus = newRow.insertCell();
+            var newCellCancel = newRow.insertCell();
+
+            // Append a text node to the cell
+            var newTextNum = document.createTextNode(table_counting);
+            var newTextName = document.createTextNode(localStorage.getItem("RobotName"));
+            var newTextIssued = document.createTextNode(time_issued);
+            var newTextTimeCommand = document.createTextNode(instruction_time);
+            var newTextInstruction = document.createTextNode(clean_string);
+            var newTextStatus = document.createTextNode(status);
+            // var newTextCancel = document.createTextNode(table_counting);
+            var input = document.createElement("button");
+            input.className = "btn btn-primary";
+            input.id = "tril";
+            newCellNum.appendChild(newTextNum);
+            newCellName.appendChild(newTextName);
+            newCellIssued.appendChild(newTextIssued);
+            newCellTimeCommand.appendChild(newTextTimeCommand);
+            newCellInstruction.appendChild(newTextInstruction);
+            newCellStatus.appendChild(newTextStatus);
+            newCellCancel.appendChild(input);
+
+
+            table_counting = table_counting + 1;
+        }
+
         $(document).ready(function () {
+
             document.getElementById('emergencyStop').addEventListener("click", () => {
                 command_number = 5;
 
@@ -690,6 +731,8 @@
                 }
                 createCommand(clean_string, time_string).then((response) => {
                     console.log(response);
+
+                    addNewEntry(response[0].time_issued, time_string[0], clean_string, response[0].status);
                     $("#successfullySet_modal").modal();
                 });
             });
@@ -714,6 +757,7 @@
 
                 createCommand(clean_string, time_string).then((response) => {
                     console.log(response);
+                    addNewEntry(response[0].time_issued, time_string[0], clean_string, response[0].status);
                     $("#successfullySet_modal").modal();
                 });
             });

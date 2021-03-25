@@ -16,6 +16,8 @@ nav.onclick = function () {
 
 
 
+
+
 document.body.onload = function () {
     document.getElementById("battery_value").innerText = localStorage.getItem('Battery');
     var batteryLevelPercentageValue = document.getElementById("battery_value");
@@ -25,19 +27,18 @@ document.body.onload = function () {
 
     var value = parseInt(batteryLevelPercentageValueStr)
 
-    if ((value >= 50) && (value <= 100)) {
-        batteryStatusGreenLight.style.display = "inline";
-    }
-    else if ((value >= 0) && (value < 50)) {
-        batteryStatusRedLight.style.display = "inline";
-        $(batteryLevelStatus_modal).modal();
-    }
-    else {
-        batteryLevelPercentageValue.innerText = "NULL";
-    }
+    // if ((value >= 50) && (value <= 100)) {
+    //     batteryStatusGreenLight.style.display = "inline";
+    // }
+    // else if ((value >= 0) && (value < 50)) {
+    //     batteryStatusRedLight.style.display = "inline";
+    //     $(batteryLevelStatus_modal).modal();
+    // }
+    // else {
+    //     batteryLevelPercentageValue.innerText = "NULL";
+    // }
 
     var username = localStorage.getItem('Username');
-    document.getElementById("welcome_user").innerHTML = username;
     document.getElementById("name_dropdown").innerHTML = username;
     
 
