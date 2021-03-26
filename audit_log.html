@@ -138,17 +138,21 @@
                                     <label class="radio">
                                         <input type="radio" name="gr" value="6">18:00</label>
                                 </li>
+                                <li class="radio">
+                                    <label class="radio">
+                                        <input type="radio" name="gr" value="7">Now</label>
+                                </li>
                             </ul>
-                            <h6 class="collapse-header">Or start now:</h6>
+                            <h6 class="collapse-header">Press to set command:</h6>
                             <div id="button-start-now" class="col text-center">
-                                <button id="adhoc-button" type="button" class="btn btn-info btn-sm">Start Now</button>
+                                <button id="start-button" type="button" class="btn btn-info btn-sm">Set</button>
                             </div>
-                        </div>
+                        </div>s
 
                     </div>
-                    <div id="button-start-now" class="col text-center">
-                        <button id="start-button" type="button" class="btn btn-success btn-sm">GO</button>
-                    </div>
+                    <!-- <div id="button-start-now" class="col text-center"> -->
+                    <!-- <button id="start-button" type="button" class="btn btn-success btn-sm">GO</button> -->
+                    <!-- </div> -->
                 </li>
 
 
@@ -420,7 +424,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Bot Name</th>
                                         <th scope="col">Time Issued</th>
-                                        <th scope="col">Command Instruction</th>
+                                        <th scope="col">Instruction Time</th>
                                         <th scope="col">Instruction</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Cancel</th>
@@ -514,51 +518,19 @@
 
     <!-- Customized script -->
     <script src="js/audit-log.js"></script>
+    <script src="js/call-api.js"></script>
 
     <script>
-
         var table_counting = 1;
+        function addNewEntry(time_issued, instruction_time, clean_string, status, command_id) {
+            //convert unix time to readable time
+            const time_issuedMilli = time_issued * 1000;
+            const instruction_timeMilli = instruction_time * 1000;
+            const time_issuedDate = new Date(time_issuedMilli);
+            const instruction_timeDate = new Date(instruction_timeMilli);
+            const time_issuedReadable = time_issuedDate.toLocaleString(); //2019-12-9 10:30:15
+            const instruction_timeReadable = instruction_timeDate.toLocaleString(); //2019-12-9 10:30:15
 
-        function createCommand(clean_string, time_string) {
-
-            var time_now = Math.floor(Date.now() / 1000);
-
-            const USER_ENDPOINT = "http://localhost:8000/command";
-            const params = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('Authorization')
-                },
-                body: JSON.stringify({
-                    robot_serial_number: localStorage.getItem('RobotID'),
-                    time_issued: time_now + 60,
-                    time_instruction: time_string,
-                    instruction: {
-                        Task: clean_string
-                    }
-                })
-            };
-            return fetch(USER_ENDPOINT, params).then(response => response.json());
-
-        }
-        function deleteCommand(command_number) {
-
-            const USER_ENDPOINT = "http://localhost:8000/command/" + command_number;
-            const params = {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('Authorization')
-                },
-                body: JSON.stringify({
-                })
-            };
-            return fetch(USER_ENDPOINT, params).then(response => response.json());
-
-        }
-
-        function addNewEntry(time_issued, instruction_time, clean_string, status) {
             var tbodyRef = document.getElementById('audit_table').getElementsByTagName('tbody')[0];
 
             // Insert a row at the end of table
@@ -576,14 +548,18 @@
             // Append a text node to the cell
             var newTextNum = document.createTextNode(table_counting);
             var newTextName = document.createTextNode(localStorage.getItem("RobotName"));
-            var newTextIssued = document.createTextNode(time_issued);
-            var newTextTimeCommand = document.createTextNode(instruction_time);
+            var newTextIssued = document.createTextNode(time_issuedReadable);
+            var newTextTimeCommand = document.createTextNode(instruction_timeReadable);
             var newTextInstruction = document.createTextNode(clean_string);
             var newTextStatus = document.createTextNode(status);
             // var newTextCancel = document.createTextNode(table_counting);
             var input = document.createElement("button");
-            input.className = "btn btn-primary";
-            input.id = "tril";
+            input.className = "btn btn-primary press_button";
+            input.id = "emergency_stop";
+            input.value = command_id;
+            if (status == "Completed" || status == "Cancelled") {
+                input.disabled = true;
+            }
             newCellNum.appendChild(newTextNum);
             newCellName.appendChild(newTextName);
             newCellIssued.appendChild(newTextIssued);
@@ -592,20 +568,54 @@
             newCellStatus.appendChild(newTextStatus);
             newCellCancel.appendChild(input);
 
+            $('#audit_table').prepend(newRow);
 
             table_counting = table_counting + 1;
+
         }
 
+
+
         $(document).ready(function () {
+            // document.getElementById('emergency_stop').addEventListener("click", () => {
+            //     $("#cancelledCommand_modal").modal();
+            //     // deleteCommand(command_number).then((response) => {
+            //     //     console.log(response);
+            //     //     $("#cancelledCommand_modal").modal();
+            //     // });
+            // })
+            document.addEventListener('click', function (e) {
+                if (e.target && e.target.className == 'btn btn-primary press_button') {
 
-            document.getElementById('emergencyStop').addEventListener("click", () => {
-                command_number = 5;
+                    deleteCommand(e.target.value).then((response) => {
+                        console.log(response);
 
-                deleteCommand(command_number).then((response) => {
-                    console.log(response);
-                    $("#cancelledCommand_modal").modal();
-                });
+                        if(response) {
+                            $("#cancelledCommand_modal").modal();
+                            e.target.disabled = true;
+                        }
+                    });
+                }
             });
+
+            // const arrClass = document.querySelectorAll(".press_button");
+            // for (let i of arrClass) {
+            //     i.addEventListener("click", (e) => {
+            //         if (e.target.classList.contains("className")) {
+            //             $("#cancelledCommand_modal").modal();
+            //             console.log("Perfrom Action")
+            //         }
+            //     })
+            // }
+
+            // document.getElementById('emergencyStop').addEventListener("click", () => {
+            //     command_number = 5;
+
+            //     deleteCommand(command_number).then((response) => {
+            //         console.log(response);
+            //         $("#cancelledCommand_modal").modal();
+            //     });
+            // });
 
             document.getElementById('start-button').addEventListener("click", () => {
                 var clean_string = '';
@@ -659,10 +669,10 @@
                         time_string.push(right_now + time_till_tmr + nineHrs_seconds + day_seconds);
                         time_string.push(right_now + time_till_tmr + nineHrs_seconds + day_seconds + day_seconds);
                     } else if (date_chosen == "today") {
-                        if (second_now >= sixHrs_seconds) {
+                        if (second_now >= nineHrs_seconds) {
                             $("#notInTimeRange_modal").modal();
                         } else {
-                            time_till_time = sixHrs_seconds - second_now;
+                            time_till_time = nineHrs_seconds - second_now;
                             time_string.push(right_now + time_till_time);
                         }
                     }
@@ -726,45 +736,53 @@
                             time_string.push(right_now + time_till_time);
                         }
                     }
+                } else if (time_of_day == 7) { // Now
+                    var second_now = right_now % 86400;
+                    var time_till_tmr = 86400 - second_now;
+
+                    if (date_chosen == "tomorrow") {
+                        time_string.push(right_now + day_seconds + 60);
+                    } else if (date_chosen == "next_three_days") {
+                        time_string.push(right_now + day_seconds + 60);
+                        time_string.push(right_now + day_seconds + day_seconds + 60);
+                        time_string.push(right_now + day_seconds + day_seconds + day_seconds + 60);
+                    } else if (date_chosen == "today") {
+                        time_string.push(right_now + 60);
+                    }
                 } else if (time_of_day == undefined) {
                     $("#noTimeChosen_modal").modal();
                 }
                 createCommand(clean_string, time_string).then((response) => {
                     console.log(response);
+                    if (response) {
+                        $("#successfullySet_modal").modal();
 
-                    addNewEntry(response[0].time_issued, time_string[0], clean_string, response[0].status);
-                    $("#successfullySet_modal").modal();
-                });
-            });
+                        fetchUserDetails().then((response) => {
+                            console.log(response);
+                            if (response) {
+                                serialNumber = response.robot_serial_number;
 
-            //on adhoc basis
-            document.getElementById('adhoc-button').addEventListener("click", () => {
-                var clean_string = '';
-                var time_string = [];
-                var right_now = Math.floor(Date.now() / 1000);
+                                fetchCommands(serialNumber).then((response) => {
+                                    if (response) {
+                                        //Will  be  an  array 
+                                        var resLength = response.length;
+                                        table_counting = 1;
+                                        $("#audit_table tbody").empty();
+                                        for (const command of response) {
+                                            addNewEntry(command.time_issued, command.time_instruction, command.instruction.Task, command.status, command.command_id);
+                                            // $("#successfullySet_modal").modal();
+                                        }
+                                    }
+                                });
+                            }
+                        });
 
-                var cleaning_pattern = $('input[name="hi"]:checked').val();
-                if (cleaning_pattern == 0) {
-                    clean_string = 'ZigZag'
-                } else if (cleaning_pattern == 1) {
-                    clean_string = 'Circular'
-                } else if (cleaning_pattern == undefined) {
-                    $(noCleaningPathChosen_modal).modal();
-                }
-
-                time_string.push(right_now + 120);
-
-
-                createCommand(clean_string, time_string).then((response) => {
-                    console.log(response);
-                    addNewEntry(response[0].time_issued, time_string[0], clean_string, response[0].status);
-                    $("#successfullySet_modal").modal();
+                        //addNewEntry(response[0].time_issued, time_string, clean_string, response[0].status);
+                    }
                 });
             });
 
         });
-
-
 
     </script>
 

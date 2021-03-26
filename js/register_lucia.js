@@ -40,7 +40,7 @@ function tester(qrSerial) {
                 if (response) {
                     localStorage.setItem('Authorization', response.token);
                     localStorage.setItem('Username', username);
-                    window.location.replace("index_justin.html");
+                    window.location.replace("index.html");
                 }
             });
         });

@@ -1,4 +1,3 @@
-
 // Simple navigation toggler
 var state = ($(".sidebar").hasClass("toggled"));
 
@@ -14,118 +13,30 @@ nav.onclick = function () {
     }
 }
 
-
+//onload
 
 document.body.onload = function () {
-    document.getElementById("battery_value").innerText = localStorage.getItem('Battery');
-    var batteryLevelPercentageValue = document.getElementById("battery_value");
-    var batteryLevelPercentageValueStr = document.getElementById("battery_value").innerHTML;
-    var batteryStatusGreenLight = document.getElementById("battery-status-green-light");
-    var batteryStatusRedLight = document.getElementById("battery-status-red-light");
-
-    var value = parseInt(batteryLevelPercentageValueStr)
-
-    if ((value >= 50) && (value <= 100)) {
-        batteryStatusGreenLight.style.display = "inline";
-    }
-    else if ((value >= 0) && (value < 50)) {
-        batteryStatusRedLight.style.display = "inline";
-        $(batteryLevelStatus_modal).modal();
-    }
-    else {
-        batteryLevelPercentageValue.innerText = "NULL";
-    }
-
     var username = localStorage.getItem('Username');
     document.getElementById("welcome_user").innerHTML = username;
     document.getElementById("name_dropdown").innerHTML = username;
-    
+    fetchUserDetails().then((response) => {
+        if (response) {
+            document.getElementById("battery_value").innerText = response.battery_level;
 
+            var batteryStatusGreenLight = document.getElementById("battery-status-green-light");
+            var batteryStatusRedLight = document.getElementById("battery-status-red-light");
+            var value = response.battery_level;
 
-
-}
-
-
-function create_robot(robot_name) {
-    const USER_ENDPOINT = "http://localhost:8000/admin/robot";
-    const params = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            "robot_serial_number": robot_name,
-            "assigned": false
-        })
-    };
-
-    fetch(USER_ENDPOINT, params)
-        .then(response => response.json())
-        .then(data => console.log(data));
-}
-
-function create_user(username, password, serialnumber) {
-    const USER_ENDPOINT = "http://localhost:8000/user";
-    const params = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            "user_name": username,
-            "password": password,
-            "robot_serial_number": serialnumber
-        })
-    };
-
-    fetch(USER_ENDPOINT, params)
-        .then(response => response.json())
-        .then(data => console.log(data));
-}
-
-function get_authorisation() {
-    const USER_ENDPOINT = "http://localhost:8000/user";
-    const params = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            "user_name": username,
-            "password": password
-        })
-    };
-
-    fetch(USER_ENDPOINT, params)
-        .then(response => response.json())
-        .then(data => console.log(data));
-}
-
-function start_now_testing(task_spec, auth) {
-    var unix_time = Date.now();
-    if (task_spec == 1) {
-        task_string = "Circular";
-    }
-
-    const USER_ENDPOINT = "http://localhost:8000/command";
-    const params = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': auth
-        },
-        body: JSON.stringify({
-            "robot_serial_number": "serial2",
-            "time_issued": unix_time,
-            "time_instruction": [unix_time],
-            "instruction": {
-                "Task": task_string
+            if ((value >= 50) && (value <= 100)) {
+                batteryStatusGreenLight.style.display = "inline";
             }
-        })
-    };
-
-    fetch(USER_ENDPOINT, params)
-        .then(response => response.json())
-        .then(data => console.log(data));
-
+            else if ((value >= 0) && (value < 50)) {
+                batteryStatusRedLight.style.display = "inline";
+                $(batteryLevelStatus_modal).modal();
+            }
+            else {
+                batteryLevelPercentageValue.innerText = "NULL";
+            }
+        }
+    })
 }

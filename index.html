@@ -29,7 +29,7 @@
 
 </head>
 
-<body  id="page-top" >
+<body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -147,17 +147,21 @@
                                     <label class="radio">
                                         <input type="radio" name="gr" value="6">18:00</label>
                                 </li>
+                                <li class="radio">
+                                    <label class="radio">
+                                        <input type="radio" name="gr" value="7">Now</label>
+                                </li>
                             </ul>
                             <h6 class="collapse-header">Or start now:</h6>
                             <div id="button-start-now" class="col text-center">
-                                <button id="adhoc-button" type="button" class="btn btn-info btn-sm">Start Now</button>
+                                <button id="start-button" type="button" class="btn btn-info btn-sm">Start</button>
                             </div>
                         </div>
 
                     </div>
-                    <div id="button-start-now" class="col text-center">
-                        <button id="start-button" type="button" class="btn btn-success btn-sm">GO</button>
-                    </div>
+                    <!-- <div id="button-start-now" class="col text-center"> -->
+                    <!-- <button id="start-button" type="button" class="btn btn-success btn-sm">GO</button> -->
+                    <!-- </div> -->
                 </li>
 
 
@@ -512,49 +516,9 @@
 
     <!-- Customized script -->
     <script src="js/index-justin.js"></script>
+    <script src="js/call-api.js"></script>
 
     <script>
-
-        
-
-        function createCommand(clean_string, time_string) {
-
-            var time_now = Math.floor(Date.now() / 1000);
-
-            const USER_ENDPOINT = "http://localhost:8000/command";
-            const params = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('Authorization')
-                },
-                body: JSON.stringify({
-                    robot_serial_number: localStorage.getItem('RobotID'),
-                    time_issued: time_now + 60,
-                    time_instruction: time_string,
-                    instruction: {
-                        Task: clean_string
-                    }
-                })
-            };
-            return fetch(USER_ENDPOINT, params).then(response => response.json());
-
-        }
-        function deleteCommand(command_number) {
-
-            const USER_ENDPOINT = "http://localhost:8000/command/" + command_number;
-            const params = {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('Authorization')
-                },
-                body: JSON.stringify({
-                })
-            };
-            return fetch(USER_ENDPOINT, params).then(response => response.json());
-
-        }
 
         $(document).ready(function () {
             document.getElementById('emergencyStop').addEventListener("click", () => {
@@ -685,33 +649,25 @@
                             time_string.push(right_now + time_till_time);
                         }
                     }
+                } else if (time_of_day == 7) { // Now
+                    const eighteenHrs_seconds = 64800;
+
+                    var second_now = right_now % 86400;
+                    var time_till_tmr = 86400 - second_now;
+
+                    if (date_chosen == "tomorrow") {
+                        time_string.push(right_now + time_till_tmr + right_now);
+                    } else if (date_chosen == "next_three_days") {
+                        time_string.push(right_now + time_till_tmr + right_now);
+                        time_string.push(right_now + time_till_tmr + right_now + day_seconds);
+                        time_string.push(right_now + time_till_tmr + right_now + day_seconds + day_seconds);
+                    } else if (date_chosen == "today") {
+                        time_string.push(right_now);
+
+                    }
                 } else if (time_of_day == undefined) {
                     $("#noTimeChosen_modal").modal();
                 }
-                createCommand(clean_string, time_string).then((response) => {
-                    console.log(response);
-                    $("#successfullySet_modal").modal();
-                });
-            });
-
-            //on adhoc basis
-            document.getElementById('adhoc-button').addEventListener("click", () => {
-                var clean_string = '';
-                var time_string = [];
-                var right_now = Math.floor(Date.now() / 1000);
-
-                var cleaning_pattern = $('input[name="hi"]:checked').val();
-                if (cleaning_pattern == 0) {
-                    clean_string = 'ZigZag'
-                } else if (cleaning_pattern == 1) {
-                    clean_string = 'Circular'
-                } else if (cleaning_pattern == undefined) {
-                    $(noCleaningPathChosen_modal).modal();
-                }
-
-                time_string.push(right_now + 120);
-
-
                 createCommand(clean_string, time_string).then((response) => {
                     console.log(response);
                     $("#successfullySet_modal").modal();

@@ -4,6 +4,8 @@ var state = ($(".sidebar").hasClass("toggled"));
 
 var nav = document.getElementById("sidebarToggleTop");
 
+
+
 nav.onclick = function () {
     state = !state;
     if (state) {
@@ -14,36 +16,51 @@ nav.onclick = function () {
     }
 }
 
-
-
-
-
 document.body.onload = function () {
-    document.getElementById("battery_value").innerText = localStorage.getItem('Battery');
-    var batteryLevelPercentageValue = document.getElementById("battery_value");
-    var batteryLevelPercentageValueStr = document.getElementById("battery_value").innerHTML;
-    var batteryStatusGreenLight = document.getElementById("battery-status-green-light");
-    var batteryStatusRedLight = document.getElementById("battery-status-red-light");
-
-    var value = parseInt(batteryLevelPercentageValueStr)
-
-    // if ((value >= 50) && (value <= 100)) {
-    //     batteryStatusGreenLight.style.display = "inline";
-    // }
-    // else if ((value >= 0) && (value < 50)) {
-    //     batteryStatusRedLight.style.display = "inline";
-    //     $(batteryLevelStatus_modal).modal();
-    // }
-    // else {
-    //     batteryLevelPercentageValue.innerText = "NULL";
-    // }
-
     var username = localStorage.getItem('Username');
     document.getElementById("name_dropdown").innerHTML = username;
-    
+    fetchUserDetails().then((response) => {
+        if (response) {
+            //ACTIVITY LOG 
+
+            serialNumber = response.robot_serial_number;
+
+            fetchCommands(serialNumber).then((response) => {
+                if (response) {
+                    //Will  be  an  array 
+                    var resLength = response.length;
+                    table_counting = 1;
+                    $("#audit_table tbody").empty();
+
+                    for (const command of response) {
+                        addNewEntry(command.time_issued, command.time_instruction, command.instruction.Task, command.status, command.command_id);
+                        // $("#successfullySet_modal").modal();
+                    }
+                }
+            });
 
 
 
+
+            //BATTERY 
+            document.getElementById("battery_value").innerText = response.battery_level;
+
+            var batteryStatusGreenLight = document.getElementById("battery-status-green-light");
+            var batteryStatusRedLight = document.getElementById("battery-status-red-light");
+            var value = response.battery_level;
+
+            if ((value >= 50) && (value <= 100)) {
+                batteryStatusGreenLight.style.display = "inline";
+            }
+            else if ((value >= 0) && (value < 50)) {
+                batteryStatusRedLight.style.display = "inline";
+                $(batteryLevelStatus_modal).modal();
+            }
+            else {
+                batteryLevelPercentageValue.innerText = "NULL";
+            }
+        }
+    })
 }
 
 

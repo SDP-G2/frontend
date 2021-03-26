@@ -77,26 +77,9 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="js/call-api.js"></script>
 
     <script>
-
-        function getAuth(username, pwd) {
-            const USER_ENDPOINT = "http://localhost:8000/auth";
-            const params = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    user_name: username,
-                    password: pwd,
-                })
-            };
-
-            return fetch(USER_ENDPOINT, params)
-                .then(response => response.json());
-
-        }
 
         $(document).ready(function () {
             document.getElementById('loginButton').addEventListener("click", () => {
@@ -105,8 +88,9 @@
 
                 getAuth(username, password).then((response) => {
                     console.log(response);
-                    localStorage.setItem('Authorization', response.token);
-                });
+                    localStorage.setItem/('Authorization', response.token);
+                    window.location.replace("index.html");
+b                });
                 
             });
         })
