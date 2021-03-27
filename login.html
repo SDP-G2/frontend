@@ -40,7 +40,7 @@
                 <!-- Left column -->
                 <div id="left-column" class="col-md-6">
                     <!-- NOTE: LOGIN CREDIENTIALS WILL NEED TO BE VERIFIED -->
-                    <!-- <form method="POST" id="login-form" action="index_justin.html"> -->
+                    <!-- <form method="POST" id="login-form" action="index.html"> -->
                         <div class="form-group">
                             <label id="loginInputLabel" for="loginInput">Your Username</label>
                             <input type="username" class="form-control" id="loginInput">
@@ -77,9 +77,26 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-    <script src="js/call-api.js"></script>
 
     <script>
+
+        function getAuth(username, pwd) {
+            const USER_ENDPOINT = "http://localhost:8000/auth";
+            const params = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user_name: username,
+                    password: pwd,
+                })
+            };
+
+            return fetch(USER_ENDPOINT, params)
+                .then(response => response.json());
+
+        }
 
         $(document).ready(function () {
             document.getElementById('loginButton').addEventListener("click", () => {
@@ -88,9 +105,8 @@
 
                 getAuth(username, password).then((response) => {
                     console.log(response);
-                    localStorage.setItem/('Authorization', response.token);
-                    window.location.replace("index.html");
-b                });
+                    localStorage.setItem('Authorization', response.token);
+                });
                 
             });
         })
