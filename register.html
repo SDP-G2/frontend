@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Login Page">
     <meta name="author" content="Lucia Garcia Velasco">
+    <meta name="author" content="Justin Howe">
+
+    <link rel="icon" href="img/favicon.png">
 
     <title>Claynce - Register Form</title>
 
@@ -47,22 +50,24 @@
                         <div class="carousel-item  active" style="width:100%;">
                             <!-- REMOVED action - manually implemented  -->
                             <row>
-                                <form method="POST" id="login-form" action="index.html">
-                                    <div class="form-group space-register">
-                                        <label id="loginInputLabel" for="loginInput"> Create Username &nbsp</label>
-                                        <input type="username" class="form-control" id="loginInput" size="50">
-                                    </div>
-                                    <div class="form-group center">
-                                        <label id="passwordInputLabel" for="exampleInputPassword1">New
-                                            Password</label>
-                                        <input type="password" class="form-control" id="passwordInput">
-                                    </div>
-                                    <button id="registerButton" type="submit" class="btn btn-primary" data-slide="next"
-                                        href="#carouselExampleControls">Register</button>
-                                    <div id="register-link-div">
-                                        <a id="register-link" href="login.html"><small id="newUserHelp">Existing
-                                                User?</small></a>
-                                    </div>
+                                <div class="form-group center">
+                                    <label id="loginInputLabel" for="loginInput"> Create Username &nbsp</label>
+                                    <input type="username" class="form-control" id="loginInput" size="50">
+                                </div>
+                                <div class="form-group center">
+                                    <label id="passwordInputLabel" for="exampleInputPassword1">New
+                                        Password</label>
+                                    <input type="password" class="form-control" id="passwordInput">
+                                </div>
+                                <div id="invalid-register-div">
+                                    <h5 id="invalid-register-text">The username or/and QR code you have chosen is invalid.</h5>
+                                </div>
+                                <button id="registerButton" type="submit" class="btn btn-primary" data-slide="next"
+                                    href="#carouselExampleControls">Register</button>
+                                <div id="register-link-div">
+                                    <a id="register-link" href="login.html"><small id="newUserHelp">Existing
+                                            User?</small></a>
+                                </div>
                             </row>
                         </div>
 
@@ -174,8 +179,15 @@
                 var password = document.getElementById('passwordInput').value;
                 var robotID = document.getElementById('uuidInput').value;
 
+                var invalidRegisterLinkDiv = document.getElementById('invalid-register-div');
+
                 createUser(username, password, robotID).then((response) => {
                     console.log(response);
+
+                    if (response === undefined) {
+                        invalidRegisterLinkDiv.style.display = "block";
+                    }
+
                     if (response) {
                         localStorage.setItem("RobotName", robotID);
                         getAuth(username, password).then((response) => {

@@ -9,6 +9,8 @@
     <meta name="description" content="Login Page">
     <meta name="author" content="Justin Howe">
 
+    <link rel="icon" href="img/favicon.png">
+
     <title>Claynce - Login Form</title>
 
     <!-- Custom fonts for this template-->
@@ -50,11 +52,14 @@
                             <label id="passwordInputLabel" for="exampleInputPassword1">Existing Password</label>
                             <input type="password" class="form-control" id="passwordInput">
                         </div>
+                        <div id="login-error-msg-div">
+                            <h5>Your username or/and password is incorrect.</h5>
+                        </div>
                         <div id="test2">
-                            <button id="loginButton" type="submit" class="btn btn-primary" href="register_lucia.html">Login</button>
+                            <button id="loginButton" type="submit" class="btn btn-primary">Login</button>
                         </div>
                         <div id="register-link-div">
-                            <a id="register-link" href="register_lucia.html"><small id="newUserHelp">New User?</small></a>
+                            <a id="register-link" href="register.html"><small id="newUserHelp">New User?</small></a>
                         </div>
                     <!-- </form> -->
                 </div>
@@ -103,9 +108,18 @@
                 var username = document.getElementById('loginInput').value;
                 var password = document.getElementById('passwordInput').value;
 
+                var errorMsgDiv = document.getElementById('login-error-msg-div');
+
                 getAuth(username, password).then((response) => {
                     console.log(response);
                     localStorage.setItem('Authorization', response.token);
+
+                    if (response === undefined) {
+                        errorMsgDiv.style.display = "block";
+                    }
+
+                    localStorage.setItem/('Authorization', response.token);
+                    window.location.replace("index.html");
                 });
                 
             });

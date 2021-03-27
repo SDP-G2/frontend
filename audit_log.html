@@ -11,6 +11,8 @@
 
     <title>Claynce - Dashboard</title>
 
+    <link rel="icon" href="img/favicon.png">
+
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -84,11 +86,11 @@
                             <ul id="pattern-choices" class="nav navbar-nav">
                                 <li class="radio">
                                     <label class="radio-inline">
-                                        <input type="radio" name="hi" value="0">Zig-Zag</label>
+                                        <input id="zig-zag-radio-button" type="radio" name="hi" value="0">Zig-Zag</label>
                                 </li>
                                 <li class="radio">
                                     <label class="radio">
-                                        <input type="radio" name="hi" value="1">Circular</label>
+                                        <input id="circular-radio-button" type="radio" name="hi" value="1">Circular</label>
                                 </li>
                             </ul>
                         </div>
@@ -120,34 +122,34 @@
                             <ul id="time-choices" class="nav navbar-nav">
                                 <li class="radio">
                                     <label class="radio-inline">
-                                        <input type="radio" name="gr" value="2">06:00</label>
+                                        <input id="set-time-radio-button-1" type="radio" name="gr" value="2">06:00</label>
                                 </li>
                                 <li class="radio">
                                     <label class="radio">
-                                        <input type="radio" name="gr" value="3">09:00</label>
+                                        <input id="set-time-radio-button-2" type="radio" name="gr" value="3">09:00</label>
                                 </li>
                                 <li class="radio">
                                     <label class="radio">
-                                        <input type="radio" name="gr" value="4">12:00</label>
+                                        <input id="set-time-radio-button-3" type="radio" name="gr" value="4">12:00</label>
                                 </li>
                                 <li class="radio">
                                     <label class="radio">
-                                        <input type="radio" name="gr" value="5">15:00</label>
+                                        <input id="set-time-radio-button-4" type="radio" name="gr" value="5">15:00</label>
                                 </li>
                                 <li class="radio">
                                     <label class="radio">
-                                        <input type="radio" name="gr" value="6">18:00</label>
+                                        <input id="set-time-radio-button-5" type="radio" name="gr" value="6">18:00</label>
                                 </li>
                                 <li class="radio">
                                     <label class="radio">
-                                        <input type="radio" name="gr" value="7">Now</label>
+                                        <input id="set-time-radio-button-6" type="radio" name="gr" value="7">Now</label>
                                 </li>
                             </ul>
                             <h6 class="collapse-header">Press to set command:</h6>
                             <div id="button-start-now" class="col text-center">
                                 <button id="start-button" type="button" class="btn btn-info btn-sm">Set</button>
                             </div>
-                        </div>s
+                        </div>
 
                     </div>
                     <!-- <div id="button-start-now" class="col text-center"> -->
@@ -435,10 +437,6 @@
                             </table>
                         </div>
 
-                        <div class="row" id="button-options-div-lu">
-                            <button id="emergencyStop" type="button" class="btn btn-danger">STOP</button>
-                        </div>
-
                         <h1 id="status-title">Status</h1>
                         <div class="container">
                             <div id="status-block" class="row">
@@ -577,6 +575,11 @@
 
 
         $(document).ready(function () {
+
+            // Tester function for debugging modals
+            //$("#notInTimeRange_modal").modal();
+
+            
             // document.getElementById('emergency_stop').addEventListener("click", () => {
             //     $("#cancelledCommand_modal").modal();
             //     // deleteCommand(command_number).then((response) => {
@@ -636,6 +639,17 @@
                 var right_now = Math.floor(Date.now() / 1000);
                 const day_seconds = 86400;
 
+                // Resets radio buttons after starting the Claynce robot- no idea why it doesn't work with jquery solution in one go
+                document.getElementById("zig-zag-radio-button").checked = false;
+                document.getElementById("circular-radio-button").checked = false;
+                document.getElementById("set-time-radio-button-1").checked = false;
+                document.getElementById("set-time-radio-button-2").checked = false;
+                document.getElementById("set-time-radio-button-3").checked = false;
+                document.getElementById("set-time-radio-button-4").checked = false;
+                document.getElementById("set-time-radio-button-5").checked = false;
+                document.getElementById("set-time-radio-button-6").checked = false;
+
+                // Front-end request sent as a String
                 if (time_of_day == 2) { // 0600
                     const sixHrs_seconds = 21600;
 
@@ -780,6 +794,8 @@
                         //addNewEntry(response[0].time_issued, time_string, clean_string, response[0].status);
                     }
                 });
+            
+            
             });
 
         });
