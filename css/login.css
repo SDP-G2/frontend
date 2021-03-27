@@ -47,6 +47,11 @@ body {
     margin: 0 auto;
     width: 95%;
 }
+
+#login-error-msg-div {
+    display: none;
+}
+
 #loginButton {
     width: 50%;
     margin: 4px 0px;
