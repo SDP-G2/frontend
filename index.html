@@ -93,11 +93,11 @@
                             <ul id="pattern-choices" class="nav navbar-nav">
                                 <li class="radio">
                                     <label class="radio-inline">
-                                        <input type="radio" name="hi" value="0">Zig-Zag</label>
+                                        <input id="zig-zag-radio-button" type="radio" name="hi" value="0">Zig-Zag</label>
                                 </li>
                                 <li class="radio">
                                     <label class="radio">
-                                        <input type="radio" name="hi" value="1">Circular</label>
+                                        <input id="circular-radio-button" type="radio" name="hi" value="1">Circular</label>
                                 </li>
                             </ul>
                         </div>
@@ -129,27 +129,27 @@
                             <ul id="time-choices" class="nav navbar-nav">
                                 <li class="radio">
                                     <label class="radio-inline">
-                                        <input type="radio" name="gr" value="2">06:00</label>
+                                        <input id="set-time-radio-button-1" type="radio" name="gr" value="2">06:00</label>
                                 </li>
                                 <li class="radio">
                                     <label class="radio">
-                                        <input type="radio" name="gr" value="3">09:00</label>
+                                        <input id="set-time-radio-button-2" type="radio" name="gr" value="3">09:00</label>
                                 </li>
                                 <li class="radio">
                                     <label class="radio">
-                                        <input type="radio" name="gr" value="4">12:00</label>
+                                        <input id="set-time-radio-button-3" type="radio" name="gr" value="4">12:00</label>
                                 </li>
                                 <li class="radio">
                                     <label class="radio">
-                                        <input type="radio" name="gr" value="5">15:00</label>
+                                        <input id="set-time-radio-button-4" type="radio" name="gr" value="5">15:00</label>
                                 </li>
                                 <li class="radio">
                                     <label class="radio">
-                                        <input type="radio" name="gr" value="6">18:00</label>
+                                        <input id="set-time-radio-button-5" type="radio" name="gr" value="6">18:00</label>
                                 </li>
                                 <li class="radio">
                                     <label class="radio">
-                                        <input type="radio" name="gr" value="7">Now</label>
+                                        <input id="set-time-radio-button-6" type="radio" name="gr" value="7"><b>Now</b></label>
                                 </li>
                             </ul>
                             <h6 class="collapse-header">Or start now:</h6>
@@ -483,10 +483,10 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
                 </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
@@ -521,6 +521,10 @@
     <script>
 
         $(document).ready(function () {
+
+            // Tester function for debugging modals
+            //$("#notInTimeRange_modal").modal();
+
             document.getElementById('emergencyStop').addEventListener("click", () => {
                 command_number = 5;
 
@@ -548,6 +552,18 @@
                 var time_of_day = $('input[name="gr"]:checked').val();
                 var right_now = Math.floor(Date.now() / 1000);
                 const day_seconds = 86400;
+
+                // Resets radio buttons after starting the Claynce robot- no idea why it doesn't work with jquery solution in one go
+                document.getElementById("zig-zag-radio-button").checked = false;
+                document.getElementById("circular-radio-button").checked = false;
+                document.getElementById("set-time-radio-button-1").checked = false;
+                document.getElementById("set-time-radio-button-2").checked = false;
+                document.getElementById("set-time-radio-button-3").checked = false;
+                document.getElementById("set-time-radio-button-4").checked = false;
+                document.getElementById("set-time-radio-button-5").checked = false;
+                document.getElementById("set-time-radio-button-6").checked = false;
+
+                // Front-end request sent as a String
 
                 if (time_of_day == 2) { // 0600
                     const sixHrs_seconds = 21600;

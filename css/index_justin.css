@@ -16,6 +16,37 @@ body {
     color: rgba(0,0,0,0.7);
 }
 
+/** Modal Information (except Logout page)
+overriding pre-existing CSS info from sb-admin **/
+.modal-header {
+    display: block;
+}
+.modal-dialog {
+    margin: 1rem auto !important;
+}
+.modal-header .close {
+    padding: 0rem 0.25rem !important;
+    margin: 0rem !important;
+}
+.modal-title {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Oswald', 'Nunito', sans-serif;
+    color: rgba(0, 0, 0, 0.75) !important;
+}
+.modal-body {
+    font-size: 1.5rem;
+    font-family: 'Nunito', sans-serif;
+}
+.modal-footer .btn.btn-default {
+    font-size: 1.25rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+}
+.close {
+    font-size: 2rem;
+}
+
 /** Navigation Bar **/
 #accordionSidebar {
     background-color: #002B53 !important;
@@ -174,6 +205,18 @@ body {
     }
     #emergencyStop {
         width: 50%;
+    }
+    .modal-title {
+        font-size: 1.5rem;
+    }
+    .modal-body {
+        font-size: 1.25rem;
+    }
+    .modal-footer .btn.btn-default {
+        font-size: 1rem;
+    }
+    .close {
+        font-size: 1rem;
     }
 }
 
