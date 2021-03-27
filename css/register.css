@@ -79,6 +79,13 @@ body {
     margin: 0 auto;
     width: 95%;
 }
+#invalid-register-div {
+    display: none;
+}
+#invalid-register-text {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 1rem;
+}
 /** Register Button animation */
 #registerButton, #submitButton {
     font-family: 'Oswald', 'Roboto', Arial, sans-serif;
