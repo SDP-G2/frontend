@@ -435,10 +435,6 @@
                             </table>
                         </div>
 
-                        <div class="row" id="button-options-div-lu">
-                            <button id="emergencyStop" type="button" class="btn btn-danger">STOP</button>
-                        </div>
-
                         <h1 id="status-title">Status</h1>
                         <div class="container">
                             <div id="status-block" class="row">
@@ -780,6 +776,11 @@
                         //addNewEntry(response[0].time_issued, time_string, clean_string, response[0].status);
                     }
                 });
+            
+                /** Resets radio buttons for Cleaning Pattern & Time once a valid command for 'SET' is pressed **/
+                $('input[name=hi]').attr('checked',false);
+                $('input[name=gr]').attr('checked',false);
+            
             });
 
         });

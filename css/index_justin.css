@@ -11,6 +11,11 @@ body {
     height: auto;
 }
 
+#welcome_user {
+    font-weight: 700;
+    color: rgba(0,0,0,0.7);
+}
+
 /** Navigation Bar **/
 #accordionSidebar {
     background-color: #002B53 !important;
